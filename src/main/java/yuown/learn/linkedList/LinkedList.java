@@ -1,11 +1,14 @@
 package yuown.learn.linkedList;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LinkedList {
 
-	private Node head;
+	private SingleLinkedNode head;
 
-	public void insertAtHead(int data) {
-		Node newNode = new Node(data);
+	public void insertAtHead(Object data) {
+		SingleLinkedNode newNode = new SingleLinkedNode(data);
 		newNode.setNextNode(head);
 		head = newNode;
 	}
@@ -16,13 +19,119 @@ public class LinkedList {
 		}
 	}
 
+	public boolean search(Object data) {
+		boolean flag = false;
+		SingleLinkedNode current = head;
+		while (null != current) {
+			if (current.getData() == data) {
+				flag = true;
+				break;
+			}
+			current = current.getNextNode();
+		}
+		return flag;
+	}
+
+	public SingleLinkedNode insertAsSorted(int data) {
+		SingleLinkedNode newNode = new SingleLinkedNode(data);
+		if (head == null || (Integer) head.getData() >= data) {
+			newNode.setNextNode(head);
+			head = newNode;
+		} else {
+			SingleLinkedNode current = head;
+			while (current.getNextNode() != null && (Integer) current.getNextNode().getData() < data) {
+				current = current.getNextNode();
+			}
+			newNode.setNextNode(current.getNextNode());
+			current.setNextNode(newNode);
+		}
+		return newNode;
+	}
+
+	public void reverse() {
+		SingleLinkedNode prev = null, next = null;
+		SingleLinkedNode current = head;
+		while (current != null) {
+			next = current.getNextNode();
+			current.setNextNode(prev);
+			prev = current;
+			current = next;
+		}
+		head = prev;
+	}
+
+	public void removeDuplicates() {
+		SingleLinkedNode current = head;
+		SingleLinkedNode prev = null;
+		Set<Integer> items = new HashSet<Integer>();
+		while (null != current) {
+			if (items.contains(current.getData())) {
+				prev.setNextNode(current.getNextNode());
+			} else {
+				items.add((Integer) current.getData());
+				prev = current;
+			}
+			current = current.getNextNode();
+		}
+	}
+
+	public void removeDuplicatesWithoutExtraMemory() {
+		SingleLinkedNode current = head;
+		SingleLinkedNode runner = null;
+		while (null != current) {
+			runner = current;
+			while (runner.getNextNode() != null) {
+				if (runner.getNextNode().getData() == current.getData()) {
+					runner.setNextNode(runner.getNextNode().getNextNode());
+				} else {
+					runner = runner.getNextNode();
+				}
+			}
+			current = current.getNextNode();
+		}
+	}
+
+	public void removeNode(SingleLinkedNode node) {
+		if (null != node && node.getNextNode() != null) {
+			node.setData(node.getNextNode().getData());
+			node.setNextNode(node.getNextNode().getNextNode());
+		}
+	}
+
+	/**
+	 * Not Working Yet
+	 */
+	public boolean isCyclic() {
+		boolean flag = false;
+		if (head == null || head.getNextNode() == null) {
+			flag = false;
+		}
+		SingleLinkedNode slow = head;
+		SingleLinkedNode fast = head.getNextNode();
+		while (true) {
+			if (fast == null || fast.getNextNode() == null) {
+				flag = false;
+			}
+			if (fast.equals(slow) || fast.getNextNode().equals(slow)) {
+				flag = true;
+				break;
+			}
+			slow = slow.getNextNode();
+			fast = fast.getNextNode().getNextNode();
+		}
+		return flag;
+	}
+
 	@Override
 	public String toString() {
 		String result = "{";
-		Node current = head;
+		SingleLinkedNode current = head;
 		while (current != null) {
-			result += current.toString() + ", ";
+			result += current.toString();
 			current = current.getNextNode();
+			if (current != null) {
+				result += ", ";
+			}
 		}
 		result += "}";
 		return result;
@@ -30,43 +139,11 @@ public class LinkedList {
 
 	public int length() {
 		int length = 0;
-		Node current = head;
+		SingleLinkedNode current = head;
 		while (current != null) {
 			current = current.getNextNode();
 			length++;
 		}
 		return length;
-	}
-
-}
-
-class Node {
-	private int data;
-	private Node nextNode;
-
-	public Node(int data) {
-		super();
-		this.data = data;
-	}
-
-	public int getData() {
-		return data;
-	}
-
-	public void setData(int data) {
-		this.data = data;
-	}
-
-	public Node getNextNode() {
-		return nextNode;
-	}
-
-	public void setNextNode(Node nextNode) {
-		this.nextNode = nextNode;
-	}
-
-	@Override
-	public String toString() {
-		return "Data: " + data;
 	}
 }
