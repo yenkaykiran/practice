@@ -95,4 +95,15 @@ public class TreeNode<T extends Comparable<T>> {
 			return this;
 		}
 	}
+
+    public static TreeNode addSorted(int[] a, int start, int end) {
+        int middle = (end + start) / 2;
+        if(end >= start) {
+            TreeNode node = new TreeNode(a[middle]);
+            node.left = addSorted(a, start, middle - 1);
+            node.right = addSorted(a, middle + 1, end);
+            return node;
+        }
+        return null;
+    }
 }

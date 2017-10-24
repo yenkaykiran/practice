@@ -2,7 +2,7 @@ package yuown.learn.tree;
 
 public class BinarySearchTreeDemo {
 
-	public static void main(String[] args) {
+	public static void main1(String[] args) {
 		BinarySearchTree<Integer> bsTree = new BinarySearchTree<Integer>();
 		bsTree.insert(5);
 		bsTree.insert(2);
@@ -30,6 +30,18 @@ public class BinarySearchTreeDemo {
 		
 		System.out.println("Smallest: " + bsTree.smallest());
 		System.out.println("Largest: " + bsTree.largest());
+		
+		System.out.println("Leaf Nodes: " + bsTree.countLeafNodes(bsTree.getRoot()));
+		
+		System.out.println("Height: " + bsTree.height(bsTree.getRoot()));
+	}
+	
+	public static void main(String[] args) {
+        BinarySearchTree<Integer> bsTree = new BinarySearchTree<Integer>();
+        int[] a = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        bsTree.addSorted(a);
+        
+        System.out.println("Prefix:  " + bsTree.preOrder(bsTree.getRoot()));
 	}
 
 }
