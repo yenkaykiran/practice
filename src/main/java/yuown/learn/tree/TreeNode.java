@@ -63,4 +63,36 @@ public class TreeNode<T extends Comparable<T>> {
 			}
 		}
 	}
+
+	public void delete(T deleteData) {
+		if (null != left && deleteData.compareTo(left.data) < 0) {
+			if (deleteData.compareTo(left.data) == 0) {
+				left = null;
+			} else {
+				left.delete(deleteData);
+			}
+		} else if (null != right && deleteData.compareTo(right.data) >= 0) {
+			if (deleteData.compareTo(right.data) == 0) {
+				right = null;
+			} else {
+				right.delete(deleteData);
+			}
+		}
+	}
+
+	public TreeNode<T> smallest() {
+		if (left != null) {
+			return left.smallest();
+		} else {
+			return this;
+		}
+	}
+	
+	public TreeNode<T> largest() {
+		if (right != null) {
+			return right.largest();
+		} else {
+			return this;
+		}
+	}
 }
