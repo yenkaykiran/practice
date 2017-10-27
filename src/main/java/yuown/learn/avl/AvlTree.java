@@ -6,7 +6,7 @@ public class AvlTree<T extends Comparable<T>> {
 
 	private int size = 0;
 
-	public void add(T obj) {
+	public AvlNode<T> add(T obj) {
 		AvlNode<T> newNode = new AvlNode<T>(obj);
 		if (root == null) {
 			root = newNode;
@@ -14,8 +14,9 @@ public class AvlTree<T extends Comparable<T>> {
 		} else {
 			add(root, newNode);
 		}
+		return newNode;
 	}
-
+	
 	private void add(AvlNode<T> parent, AvlNode<T> node) {
 		if (node.getData().compareTo(parent.getData()) < 0) {
 			if (parent.getLeft() != null) {
@@ -51,10 +52,52 @@ public class AvlTree<T extends Comparable<T>> {
 		
 	}
 
-	private int height(AvlNode<T> node) {
+    public int height() {
+        return height(root);
+    }
+
+    private int height(AvlNode<T> node) {
 		if (node == null) {
 			return 0;
 		}
 		return Math.max(height(node.getLeft()), height(node.getRight())) + 1;
 	}
+
+    public AvlNode<T> leftRotate(AvlNode<T> root, AvlNode<T> node) {
+        AvlNode<T> tmp = node.getLeft();
+        root.setRight(tmp);
+        if (null != tmp) {
+            tmp.setParent(root);
+        }
+        node.setLeft(root);
+        root.setParent(node);
+        node.setParent(null);
+        // this.root = node; // Hack for Testing manually
+        return node;
+    }
+    
+    public AvlNode<T> rightRotate(AvlNode<T> root, AvlNode<T> node) {
+        AvlNode<T> tmp = node.getRight();
+        root.setLeft(tmp);
+        if(tmp != null) {
+            tmp.setParent(root);
+        }
+        node.setRight(root);
+        root.setParent(node);
+        // this.root = node; // Hack for Testing manually
+        return node;
+    }
+    
+    public void inorder() {
+        inorder(root);
+        System.out.println();
+    }
+
+    private void inorder(AvlNode<T> node) {
+        if (node != null) {
+            inorder(node.getLeft());
+            System.out.print(node.getData() + " ");
+            inorder(node.getRight());
+        }
+    }
 }
