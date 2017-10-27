@@ -27,6 +27,10 @@ public class QueueWithLinkedList {
 		head = head.right();
 		return data;
 	}
+	
+	public boolean isEmpty() {
+		return head == null;
+	}
 
 	@Override
 	public String toString() {

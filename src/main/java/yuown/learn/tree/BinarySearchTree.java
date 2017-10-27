@@ -1,8 +1,12 @@
 package yuown.learn.tree;
 
+import yuown.learn.linkedList.QueueWithLinkedList;
+
 public class BinarySearchTree<T extends Comparable<T>> {
 
     private TreeNode<T> root;
+    
+    QueueWithLinkedList q = new QueueWithLinkedList();
 
     public TreeNode<T> search(T data) {
         if (root == null) {
@@ -79,6 +83,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
             } else {
                 parent.setRight(current.getRight());
             }
+        } else {
+//        	TreeNode<T> smallest = current.getRight().smallest();
+//        	current.setData(smallest.getData());
+//        	parent.setRight(current.getRight());
         }
     }
 
@@ -135,6 +143,24 @@ public class BinarySearchTree<T extends Comparable<T>> {
             result += " " + node.getData();
         }
         return result;
+    }
+    
+    public String levelOrder(TreeNode<T> node) {
+    	String result = "";
+    	if(null != node) {
+    		result += " " + node.getData();
+    		if(node.getLeft() != null) {
+    			q.enqueue(node.getLeft());
+    		}
+    		if(node.getRight() != null) {
+    			q.enqueue(node.getRight());
+    		}
+    		if(!q.isEmpty()) {
+    			TreeNode<T> c = (TreeNode<T>) q.dequeue();
+    			result += levelOrder(c);
+    		}
+    	}
+    	return result;
     }
 
     public int countLeafNodes(TreeNode<T> node) {
