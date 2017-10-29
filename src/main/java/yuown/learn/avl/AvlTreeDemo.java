@@ -5,9 +5,9 @@ public class AvlTreeDemo {
     public static void main(String[] args) {
         AvlTree<Integer> avlTree = new AvlTree<Integer>();
         
-        avlTree.add(4);
+        AvlNode<Integer> root = avlTree.add(4);
         avlTree.add(6);
-        AvlNode<Integer> last = avlTree.add(8);
+        avlTree.add(8);
         
         
         System.out.println("Inorder...");
@@ -16,7 +16,7 @@ public class AvlTreeDemo {
         System.out.println("Height: " + avlTree.height());
         
         System.out.println("Rotating Left...");
-        avlTree.leftRotate(last.getParent().getParent(), last.getParent());
+        avlTree.leftRotate(root);
         
         System.out.println("Inorder...");
         avlTree.inorder();

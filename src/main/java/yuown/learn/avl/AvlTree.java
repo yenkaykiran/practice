@@ -63,29 +63,20 @@ public class AvlTree<T extends Comparable<T>> {
 		return Math.max(height(node.getLeft()), height(node.getRight())) + 1;
 	}
 
-    public AvlNode<T> leftRotate(AvlNode<T> root, AvlNode<T> node) {
-        AvlNode<T> tmp = node.getLeft();
-        root.setRight(tmp);
-        if (null != tmp) {
-            tmp.setParent(root);
-        }
-        node.setLeft(root);
-        root.setParent(node);
-        node.setParent(null);
-        // this.root = node; // Hack for Testing manually
-        return node;
+    public AvlNode<T> leftRotate(AvlNode<T> node) {
+        AvlNode<T> tmp = node.getRight();
+        node.setRight(tmp.getLeft());
+        tmp.setLeft(node);
+        root = tmp;
+        return tmp;
     }
     
-    public AvlNode<T> rightRotate(AvlNode<T> root, AvlNode<T> node) {
-        AvlNode<T> tmp = node.getRight();
-        root.setLeft(tmp);
-        if(tmp != null) {
-            tmp.setParent(root);
-        }
-        node.setRight(root);
-        root.setParent(node);
-        // this.root = node; // Hack for Testing manually
-        return node;
+    public AvlNode<T> rightRotate(AvlNode<T> node) {
+        AvlNode<T> tmp = node.getLeft();
+        node.setLeft(tmp.getRight());
+        tmp.setRight(node);
+        root = tmp;
+        return tmp;
     }
     
     public void inorder() {
