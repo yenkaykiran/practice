@@ -14,7 +14,5 @@ public class HeapDemo {
 		System.out.println(heap);
 		heap.sort();
 		System.out.println(heap);
-		heap.add(30);
-		System.out.println(heap);
 	}
 }

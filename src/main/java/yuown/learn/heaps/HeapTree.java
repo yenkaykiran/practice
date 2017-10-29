@@ -10,7 +10,7 @@ public class HeapTree<T extends Comparable<T>> {
 	private int currentPosition = -1;
 
 	public HeapTree(Class<T> type, int size) {
-		data = (T[]) Array.newInstance(type, size + 1);
+		data = (T[]) Array.newInstance(type, size);
 	}
 
 	public void add(T d) {
