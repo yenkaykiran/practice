@@ -48,6 +48,20 @@ public class LinkedList {
 		return newNode;
 	}
 
+	public SingleLinkedNode insertAtEnd(int data) {
+		SingleLinkedNode newNode = new SingleLinkedNode(data);
+		if(head == null) {
+			head = newNode;
+		} else {
+			SingleLinkedNode current = head;
+			while (current.getNextNode() != null) {
+				current = current.getNextNode();
+			}
+			current.setNextNode(newNode);			
+		}
+		return newNode;
+	}
+
 	public void reverse() {
 		SingleLinkedNode prev = null, next = null;
 		SingleLinkedNode current = head;
@@ -80,7 +94,7 @@ public class LinkedList {
 		SingleLinkedNode runner = null;
 		while (null != current) {
 			runner = current;
-			while (runner.getNextNode() != null) {
+			while (null != runner.getNextNode()) {
 				if (runner.getNextNode().getData() == current.getData()) {
 					runner.setNextNode(runner.getNextNode().getNextNode());
 				} else {

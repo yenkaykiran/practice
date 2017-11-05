@@ -8,7 +8,7 @@ public class Permutations {
 	}
 
 	private static void allPermutations(char[] chars, int k, int n) {
-		if (k == n) {
+		if(k == n) {
 			System.out.println(new String(chars));
 		} else {
 			for (int i = k; i < n; i++) {
