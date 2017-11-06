@@ -50,14 +50,14 @@ public class LinkedList {
 
 	public SingleLinkedNode insertAtEnd(int data) {
 		SingleLinkedNode newNode = new SingleLinkedNode(data);
-		if(head == null) {
+		if (head == null) {
 			head = newNode;
 		} else {
 			SingleLinkedNode current = head;
 			while (current.getNextNode() != null) {
 				current = current.getNextNode();
 			}
-			current.setNextNode(newNode);			
+			current.setNextNode(newNode);
 		}
 		return newNode;
 	}
@@ -159,5 +159,21 @@ public class LinkedList {
 			length++;
 		}
 		return length;
+	}
+
+	public Object kThFromLast(int k) {
+		SingleLinkedNode p1 = head;
+		SingleLinkedNode p2 = head;
+		for (int i = 0; i < k; i++) {
+			if(null == p1) {
+				return null;
+			}
+			p1 = p1.getNextNode();
+		}
+		while(p1 != null) {
+			p1 = p1.getNextNode();
+			p2 = p2.getNextNode();
+		}
+		return p2.getData();
 	}
 }

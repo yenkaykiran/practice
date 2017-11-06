@@ -12,5 +12,12 @@ public class LinkedListDemo {
 		list.insertAtEnd(20);
 
 		System.out.println(list);
+
+		System.out.println(list.kThFromLast(1));
+		System.out.println(list.kThFromLast(2));
+		System.out.println(list.kThFromLast(3));
+		System.out.println(list.kThFromLast(4));
+		System.out.println(list.kThFromLast(5));
+		System.out.println(list.kThFromLast(6));
 	}
 }
