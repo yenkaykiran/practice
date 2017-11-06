@@ -5,7 +5,7 @@ public class TowerOfHanoi {
 	
 	static int step = 0; 
 	public static void main(String[] args) {
-		move(5, 'A', 'C', 'B');
+		move(2, 'A', 'C', 'B');
 	}
 
 	private static void move(int numberOfDiscs, char from, char to, char inter) {

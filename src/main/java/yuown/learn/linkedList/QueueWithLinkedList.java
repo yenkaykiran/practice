@@ -4,9 +4,12 @@ public class QueueWithLinkedList {
 
 	private DoublyLinkedNode head;
 	private DoublyLinkedNode tail;
+	
+	private int size = 0;
 
 	public void enqueue(Object data) {
 		DoublyLinkedNode newNode = new DoublyLinkedNode(data);
+		size++;
 		if (head == null) {
 			head = newNode;
 		}
@@ -25,6 +28,7 @@ public class QueueWithLinkedList {
 		}
 		data = head.getData();
 		head = head.right();
+		size--;
 		return data;
 	}
 	
@@ -46,5 +50,8 @@ public class QueueWithLinkedList {
 		result += "}";
 		return result;
 	}
-
+	
+	public int getSize() {
+		return size;
+	}
 }
