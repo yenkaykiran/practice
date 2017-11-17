@@ -17,13 +17,12 @@ public class RopeFire {
 			for (int j = 0; j < L - 1; j++) {
 				l[j] = s.nextInt();
 			}
-			for (int k = 0; k < L; k++) {
-				time++;
-				if (k > 0 && k < L - 1) {
-					int diff = Math.abs(u[k - 1] - l[k - 1]);
-					time += diff;
-					time += 1;
-				}
+			time = 0;
+			for (int k = 1; k < L; k++) {
+				int max = Math.max(k + u[k - 1], k + l[k - 1]);
+				System.out.println("M: " + max);
+				time = Math.max(time, max);
+				System.out.println("T: " + time);
 			}
 			System.out.println(time);
 		}
