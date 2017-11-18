@@ -1,33 +1,35 @@
 package yuown.generic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class Factorial {
-	public static void main(String args[] ) throws Exception {
-        Scanner s = new Scanner(System.in);
-        int tests = Integer.parseInt(s.nextLine());
-        for(int i = 0; i < tests; i++) {
-            int people = Integer.parseInt(s.nextLine());
-            long result = factorial(people) / (factorial(people - 2));
-			System.out.println(result % 1000000007);
-        }
-    }
-    
-    private static long factorial(int n) {
-        List<Long> arr = new ArrayList<Long>(n);
-        return factorial(n, arr);
-    }
-    
-    private static long factorial(int n, List<Long> arr) {
-        if(n == 0) {
-            return 1;
-        }
-        if(n == 1) {
-            arr.set(0, 1L);
-            return 1;
-        }
-        return factorial(n - 1, arr) * n;
-    }
+	public static void main(String args[]) throws Exception {
+		int N = 63;
+		long[] f = new long[N];
+
+		long s = System.currentTimeMillis();
+		System.out.println("Factorial of " + N + " = " + factorial2(N, f));
+		System.out.println("Time = " + (System.currentTimeMillis() - s));
+
+		System.out.println();
+
+		s = System.currentTimeMillis();
+		System.out.println("Factorial of " + N + " = " + factorial1(N));
+		System.out.println("Time = " + (System.currentTimeMillis() - s));
+	}
+
+	private static long factorial1(int n) {
+		if (n <= 1) {
+			return 1;
+		} else {
+			return factorial1(n - 1) * n;
+		}
+	}
+
+	private static long factorial2(int n, long[] f) {
+		if (n <= 1) {
+			f[0] = 1;
+			return f[0];
+		}
+		f[n - 1] = factorial2(n - 1, f);
+		return n * f[n - 1];
+	}
 }
