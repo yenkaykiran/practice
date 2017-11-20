@@ -11,21 +11,26 @@ public class LuckyPurchase {
 		for (int a0 = 0; a0 < n; a0++) {
 			String s = in.next();
 			int price = in.nextInt();
-			char[] a = Integer.toString(price).toCharArray();
-			if (a.length % 2 == 0) {
+			int p = price;
+			if (p >= 1 && p <= 1000000000) {
 				int len4 = 0, len7 = 0;
-				for (int i = 0; i < a.length; i++) {
-					if (a[i] == '4') {
+				while (p > 0) {
+					int rem = p % 10;
+					if (rem == 4) {
 						len4++;
-					} else if (a[i] == '7') {
+					} else if (rem == 7) {
 						len7++;
 					} else {
-						len4 = len7 = 0;
+						len4 = 0;
+						break;
 					}
+					p = p / 10;
 				}
 				if (len4 > 0 && len4 == len7) {
-					min = Math.min(min, price);
-					found = s;
+					if (price < min) {
+						min = price;
+						found = s;
+					}
 				}
 			}
 		}

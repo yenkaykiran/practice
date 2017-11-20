@@ -1,75 +1,38 @@
 package yuown.hackerrank;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ThreeDSurfaceArea {
 
-	static int surfaceArea(int[][] A) {
-		int area = 0;
-		int[][] a = new int[A.length][];
-		int cols = 0, rows = 0;
-		for (int i = 0; i < A.length; i++) {
-			a[i] = new int[A[i].length];
-			rows = A.length;
-			for (int j = 0; j < A[i].length; j++) {
-				cols = A[0].length;
-				if (A[i][j] > 0) {
-					a[i][j] = 2 + 4 * A[i][j];
-				}
+	static long surfaceArea(int[][] A) {
+		int area = 2 * A.length * A[0].length;
+		int dx[] = { 0, 0, 1, -1 };
+		int dy[] = { 1, -1, 0, 0 };
+
+		int[][] B = new int[A.length + 2][A[0].length + 2];
+		for (int i = 1; i <= A.length; i++) {
+			B[i] = new int[A[0].length + 2];
+			for (int j = 1; j <= A[i - 1].length; j++) {
+				B[i][j] = A[i - 1][j - 1];
 			}
 		}
 
-		for (int i = 0; i < A.length; i++) {
-			for (int j = 0; j < A[i].length; j++) {
-				if (A[i][j] > 0) {
-					if (j == 0) {
-						a[i][j] -= A[i][j];
-					}
-					if (j > 0) {
-						a[i][j] -= A[i][j - 1];
-					}
-				}
+		for (int i = 0; i < B.length; i++) {
+			for (int j = 0; j < B[i].length; j++) {
+				System.out.print(B[i][j] + " ");
 			}
-			for (int j = A[i].length - 1; j > 0; j--) {
-				if (A[i][j] > 0) {
-					a[i][j] -= A[i][j - 1];
-				}
-			}
-		}
-		System.out.println("A");
-		for (int i = 0; i < a.length; i++) {
-			System.out.println(Arrays.toString(a[i]));
-		}
-		int[][] b = new int[cols][rows];
-		for (int i = 0; i < b.length; i++) {
-			b[i] = new int[rows];
-			for (int j = 0; j < b[i].length; j++) {
-				b[i][j] = a[j][i];
-			}
+			System.out.println();
 		}
 
-		for (int i = 0; i < b.length; i++) {
-			for (int j = 0; j < b[i].length; j++) {
-				if (A[j][i] > 0) {
-//					if (j == 0) {
-//						b[i][j] -= A[j][i];
-//					}
-//					if (j > 0) {
-//						b[i][j] -= A[j - 1][i];
-//					}
+		for (int x = 1; x <= A.length; x++) {
+			for (int y = 1; y <= A[0].length; y++) {
+				for (int i = 0; i < 4; i++) {
+					int x_ = x + dx[i];
+					int y_ = y + dy[i];
+//					System.out.println("B[x][y] = " + B[x][y]);
+//					System.out.println("B[x_][y_] = " + B[x_][y_]);
+					area += Math.max(0, B[x][y] - B[x_][y_]);
 				}
-			}
-		}
-
-		System.out.println("B");
-		for (int i = 0; i < b.length; i++) {
-			System.out.println(Arrays.toString(b[i]));
-		}
-
-		for (int i = 0; i < b.length; i++) {
-			for (int j = 0; j < b[i].length; j++) {
-				area += b[i][j];
 			}
 		}
 		return area;
@@ -85,7 +48,7 @@ public class ThreeDSurfaceArea {
 				A[A_i][A_j] = in.nextInt();
 			}
 		}
-		int result = surfaceArea(A);
+		long result = surfaceArea(A);
 		System.out.println(result);
 		in.close();
 	}
