@@ -5,18 +5,7 @@ import java.util.Scanner;
 public class TripleRecursion {
 	static void tripleRecursion(int n, int m, int k) {
         int[][] a = new int[n][n];
-        a[0][0] = m;
-        for(int i = 0; i < n; i++) {
-        	for(int j = 0; j < n; j++) {
-        		if(i > 0 && i == j) {
-        			a[i][j] = a[i - 1][j - 1] + k;
-        		} else if(i > j) {
-        			a[i][j] = a[i - 1][j] - 1;
-        		} else if(i < j) {
-        			a[i][j] = a[i][j - 1] - 1;
-        		}
-        	}
-        }
+        func(a, 0, 0, m, k);
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 System.out.print(a[i][j] + " ");
@@ -24,6 +13,10 @@ public class TripleRecursion {
             System.out.println();
         }
     }
+
+	private static void func(int[][] a, int i, int j, int m, int k) {
+		
+	}
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);

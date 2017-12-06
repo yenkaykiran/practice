@@ -42,15 +42,20 @@ public class BinarySearchTreeDemo {
 
 	public static void main(String[] args) {
 		BinarySearchTree<Integer> bsTree = new BinarySearchTree<Integer>();
-		bsTree.insert(1);
-		bsTree.insert(2);
+		
 		bsTree.insert(3);
-		bsTree.insert(4);
+		TreeNode<Integer> two = bsTree.insert(2);
 		bsTree.insert(5);
-		bsTree.insert(6);
-		bsTree.insert(7);
+		bsTree.insert(1);
+		
+		two.setRight(new TreeNode<Integer>(4));
+		//bsTree.insert(4);
+		
+//		bsTree.insert(6);
+//		bsTree.insert(7);
 
-		System.out.println("Binary Tree Width: " + bsTree.maxWidth());
+		System.out.println("Binary Tree Width: " + bsTree.levelOrder(bsTree.getRoot()));
+		System.out.println("isBST = " + bsTree.isBST(bsTree.getRoot(), Integer.MIN_VALUE, Integer.MAX_VALUE));
 	}
 
 }

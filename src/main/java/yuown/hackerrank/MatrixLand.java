@@ -5,8 +5,22 @@ import java.util.Scanner;
 public class MatrixLand {
 	static int matrixLand(int[][] count) {
 		int score = 0;
-		
-        return score;
+		for (int i = 0; i < count.length; i++) {
+			int[][] cloned = count.clone();
+			int current = calculateCount(i, cloned);
+			score = Math.max(current, score);
+		}
+		return score;
+	}
+
+	private static int calculateCount(int i, int[][] cloned) {
+		int count = 0;
+		for (int j = i; j < cloned.length; j++) {
+			for (int k = 0; k < cloned.length; k++) {
+				
+			}
+		}
+		return count;
 	}
 
 	public static void main(String[] args) {

@@ -52,20 +52,23 @@ public class TreeNode<T extends Comparable<T>> {
 		return null;
 	}
 
-	public void insert(T searchData) {
+	public TreeNode<T> insert(T searchData) {
 		if (searchData.compareTo(this.data) >= 0) {
 			if (null != right) {
-				right.insert(searchData);
+				return right.insert(searchData);
 			} else {
 				right = new TreeNode<T>(searchData);
+				return right;
 			}
 		} else if (searchData.compareTo(this.data) < 0) {
 			if (null != left) {
-				left.insert(searchData);
+				return left.insert(searchData);
 			} else {
 				left = new TreeNode<T>(searchData);
+				return left;
 			}
 		}
+		return null;
 	}
 
 	public void delete(T deleteData) {

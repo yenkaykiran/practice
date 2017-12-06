@@ -18,11 +18,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-	public void insert(T data) {
+	public TreeNode<T> insert(T data) {
 		if (root == null) {
 			root = new TreeNode<T>(data);
+			return root;
 		} else {
-			root.insert(data);
+			return root.insert(data);
 		}
 	}
 
@@ -206,5 +207,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			}
 		}
 		return maxWidth;
+	}
+	
+	public boolean isBST(TreeNode<T> current, T minValue, T maxValue) {
+		if(current == null) {
+			return true;
+		}
+		if(current.getData().compareTo(minValue) < 0 || current.getData().compareTo(maxValue) > 0) {
+			return false;
+		}
+		return isBST(current.getLeft(), minValue, current.getData()) && isBST(current.getRight(), current.getData(), maxValue);
 	}
 }
