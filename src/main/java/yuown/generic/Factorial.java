@@ -2,7 +2,7 @@ package yuown.generic;
 
 public class Factorial {
 	public static void main(String args[]) throws Exception {
-		int N = 63;
+		int N = 10;
 		long[] f = new long[N];
 
 		long s = System.currentTimeMillis();

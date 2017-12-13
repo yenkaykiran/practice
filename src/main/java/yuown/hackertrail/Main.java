@@ -12,38 +12,35 @@ public class Main {
 			Scanner scan = new Scanner(System.in);
 
 			// check if there is any more line
-			if (scan.hasNextLine()) {
+			while (scan.hasNextLine()) {
 				// here's how you read the next line
-				String string = scan.nextLine();
-				String[] xy = string.split(" ");
-				int x = Integer.parseInt(xy[0]);
-				int y = Integer.parseInt(xy[1]);
-
-				int[][] heights = new int[x][y];
-
-				for (int i = 0; i < heights.length; i++) {
-					String line = scan.nextLine();
-					String[] lineArray = line.split(" ");
-					for (int j = 0; j < heights[i].length; j++) {
-						heights[i][j] = Integer.parseInt(lineArray[j]);
-					}
+				String string = scan.nextLine().trim();
+				String[] split = string.split(" ");
+				char op = split[0].charAt(0);
+				int a = Integer.parseInt(split[1]);
+				int b = Integer.parseInt(split[2]);
+				int result = 0;
+				switch (op) {
+				case '+':
+					result = a + b;
+					break;
+				case '-':
+					result = a - b;
+					break;
+				case '*':
+					result = a * b;
+					break;
+				case '/':
+					result = a / b;
+					break;
+				case '%':
+					result = a % b;
+					break;
 				}
-				
-//				for (int i = 0; i < heights.length; i++) {
-//					for (int j = 0; j < heights[i].length; j++) {
-//						System.out.print(heights[i][j] + " ");
-//					}
-//					System.out.println();
-//				}
-				
-				
-				
+				System.out.println(result);
 			}
+
 		} catch (Exception e) {
 		}
-	}
-	
-	void start(int[][] heights, int longestPath, int dropSize) {
-		
 	}
 }
