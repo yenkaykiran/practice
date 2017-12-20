@@ -17,7 +17,7 @@ public class Receive {
 	public static void main(String[] args) throws IOException, TimeoutException {
 		ConnectionFactory f = new ConnectionFactory();
 		Connection con = f.newConnection();
-		Channel cnl = con.createChannel();
+		final Channel cnl = con.createChannel();
 
 		cnl.queueDeclare(queueName, false, false, false, null);
 
@@ -34,6 +34,7 @@ public class Receive {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} finally {
+					cnl.basicAck(envelope.getDeliveryTag(), false);
 					System.out.println(" [x] Done");
 				}
 			}
@@ -47,6 +48,6 @@ public class Receive {
 			}
 		};
 
-		cnl.basicConsume(queueName, true, defcons);
+		cnl.basicConsume(queueName, false, defcons);
 	}
 }

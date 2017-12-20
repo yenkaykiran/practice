@@ -29,7 +29,7 @@ public class Send {
 
 	private static String generate(String[] args) {
 		if (args.length < 1) {
-			return "Hello k3n!";
+			return "Hello k3n........";
 		}
 		return joinStrings(args, " ");
 	}
