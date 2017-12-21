@@ -1,27 +1,27 @@
-package yuown.rabbitmq.two;
+package yuown.rabbitmq.three;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-public class Send {
+public class EmitLog {
 
-	private static final String queueName = "k3n-queue";
+	private static final String exchangeName = "logs";
 
 	public static void main(String[] args) throws IOException, TimeoutException {
-		ConnectionFactory fct = new ConnectionFactory();
-		fct.setHost("localhost");
-		Connection con = fct.newConnection();
+		ConnectionFactory f = new ConnectionFactory();
+		f.setHost("localhost");
+		Connection con = f.newConnection();
 		Channel cnl = con.createChannel();
 
-		cnl.queueDeclare(queueName, false, false, false, null);
-		cnl.basicQos(1);
-		for (int i = 1; i <= 3000; i++) {
+		cnl.exchangeDeclare(exchangeName, BuiltinExchangeType.FANOUT);
+		for (int i = 1; i <= 30; i++) {
 			String body = prepare("Hello " + i, i);
-			cnl.basicPublish("", queueName, null, body.getBytes());
+			cnl.basicPublish(exchangeName, "", null, body.getBytes());
 
 			System.out.println(" [x] Sent '" + body + "'");
 		}
@@ -32,9 +32,9 @@ public class Send {
 
 	private static String prepare(String args, int j) {
 		StringBuilder sb = new StringBuilder(args);
-//		for (int i = 1; i <= j * 2; i++) {
-//			sb.append(".");
-//		}
+		// for (int i = 1; i <= j * 2; i++) {
+		// sb.append(".");
+		// }
 		return sb.toString();
 	}
 }
